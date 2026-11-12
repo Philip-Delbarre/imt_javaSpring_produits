@@ -20,7 +20,7 @@ public class ProduitRequest {
     }
 
     /** Contrôle les données reçues ; lève une BadRequestException (HTTP 400) avec le détail des champs en erreur. */
-    public void verifier() {
+    public boolean verifier() {
         Map<String, String> erreurs = new TreeMap<>();
         if (nomProduit == null || nomProduit.trim().isEmpty()) {
             erreurs.put("nomProduit", "le nom du produit est obligatoire");
@@ -33,6 +33,7 @@ public class ProduitRequest {
         if (!erreurs.isEmpty()) {
             throw new BadRequestException("Données invalides", erreurs);
         }
+        return true;
     }
 
     public String getNomProduit() {

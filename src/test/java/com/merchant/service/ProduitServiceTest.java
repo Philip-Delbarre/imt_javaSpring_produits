@@ -1,17 +1,17 @@
 package com.merchant.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.merchant.dto.ProduitRequest;
 import com.merchant.dto.ProduitResponse;
+
 import com.merchant.entity.Produit;
 import com.merchant.repository.ProduitRepository;
 
@@ -21,22 +21,10 @@ public class ProduitServiceTest {
 
 // on va créer un objet fictif pour les tests
 
-    @Mock 
-    private ProduitRepository produitRepository; 
+    
+   private ProduitRepository produitRepository; 
+   private ProduitService produitService;
 
-    @InjectMocks 
-    private ProduitService produitService;
-
-
-    @Test
-    void testCreate() {
-
-    }
-
-    @Test
-    void testDelete() {
-
-    }
 
     @Test
     void shouldReturnAllProduct (){
@@ -50,14 +38,21 @@ public class ProduitServiceTest {
     
     }
     
-
-    @Test
-    void testFindById() {
-
+// test le bon formattage de la reponse pour voir si elle ne leve pas d'erreur / expextion à sa création
+    @Test 
+     void produitValideNeLevePasErreur() {
+        ProduitRequest request = new ProduitRequest();
+        request.setNomProduit("poterie");
+        request.setPrixUnitaire(new BigDecimal("12.30"));
+        assertDoesNotThrow(()-> request.verifier());
+    
     }
 
     @Test
-    void testFindByIds() {
+    void testResponseFormat() {
+        ProduitResponse produitResponse =   new ProduitResponse(1, "sabre Lazer", "un sacré cadeau pour ce nole car j'en ai bien besoin", new BigDecimal("200.30"));
+        Produit testProduct = new Produit("sabre Lazer", "un sacré cadeau pour ce nole car j'en ai bien besoin", new BigDecimal("200.30"));
+        assertEquals(produitResponse.getNomProduit(), testProduct.getNomProduit());
 
     }
 
