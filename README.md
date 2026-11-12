@@ -56,7 +56,7 @@ CREATE TABLE produits (
 Prérequis : JDK 17 ou plus.
 
 ```bash
-mvnw.cmd spring-boot:run        # Linux / macOS : ./mvnw spring-boot:run
+mvnw.cmd compile org.codehaus.mojo:exec-maven-plugin:3.6.3:java -Dexec.mainClass=com.merchant.Application    # Linux / macOS : ./mvnw spring-boot:run
 ```
 
 - API : http://localhost:8080/api
